@@ -20,6 +20,9 @@ model GenericPipe
         {if exposeState_b then sum(geometry.dlengths) else sum(geometry.dlengths)
            - 0.5*geometry.dlengths[nV]}))
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
+  //==========================================================================
+  // Parameters & Ports
+  //==========================================================================
   parameter Boolean allowFlowReversal = true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation(Dialog(tab="Advanced"), Evaluate=true);
@@ -30,7 +33,10 @@ model GenericPipe
       Placement(transformation(extent={{90,-10},{110,10}}), iconTransformation(extent={{90,-10},
             {110,10}})));
   parameter Real nParallel=1 "Number of parallel components";
-  //extends TRANSFORM.Fluid.Pipes.ClosureModels.Geometry.PipeIcons(final figure=geometry.figure);
+
+  //==========================================================================
+  // Distributed Volume Setup
+  //==========================================================================
   extends BaseClasses.PartialDistributedVolume(
     final Vs=geometry.Vs,
     final nV= geometry.nV,
