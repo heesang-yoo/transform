@@ -8,3 +8,4 @@ GenericPipe_withWallAndInsulation
 TransportDelayPipe
 parallelFlow
 BaseClasses
+GenericPipe_MultiTransferSurface_6dof

@@ -1,0 +1,15 @@
+ 
+Compiling and linking the model (Visual C++). 
+ 
+dsmodel.c
+C:\Program Files\Dymola 2024x\source\dymtable.h(1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+dsmodelext1.c
+dsmodelext2.c
+dsmodelext3.c
+dsmodelext4.c
+코드를 생성하고 있습니다...
+   dymosim.lib 라이브러리 및 dymosim.exp 개체를 생성하고 있습니다.
+LINK : warning LNK4217: '___iob_func'에 정의된 'dsmodel.obj' 기호를 함수 'gsundials.lib(cvode.obj)'에서 '_CVodeCreate'이(가) 가져왔습니다.
+ 
+Successful generation of Dymosim. 
+ 

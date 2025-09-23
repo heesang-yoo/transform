@@ -228,7 +228,7 @@ model GenericPipe_MultiTransferSurface
     "Formulation of momentum balances"
     annotation (Evaluate=true, Dialog(tab="Advanced", group="Dynamics"));
   // Advanced
-  input SI.Acceleration g_n=Modelica.Constants.g_n "Gravitational acceleration"
+  replaceable input SI.Acceleration g_n=Modelica.Constants.g_n "Gravitational acceleration"
     annotation (Dialog(tab="Advanced", group="Inputs"));
   parameter Boolean useInnerPortProperties=false
     "=true to take port properties for flow models from internal control volumes"
@@ -354,6 +354,8 @@ protected
   SI.Length[nFM + 1] perimetersFM "Wetted perimeters of flow segments";
   SI.Height[nFM + 1] roughnessesFM "Average heights of surface asperities";
   SIadd.ExtraPropertyFlowRate mC_flows_traceMassTransferSum[nV,Medium.nC] = {{sum(traceMassTransfer.mC_flows[i,:,k]) for k in 1:Medium.nC} for i in 1:nV};
+
+
 equation
   // Source/sink terms for balance equations
   for i in 1:nV loop

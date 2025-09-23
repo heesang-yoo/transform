@@ -12,7 +12,8 @@ extends TRANSFORM.Icons.Example;
     use_HeatTransferOuter=true,
     use_TraceMassTransferOuter=true,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.Pipe_Wall.StraightPipe (
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.Pipe_Wall.StraightPipe
+        (
         dimension=0.1,
         nR=1,
         nV=10),
@@ -23,10 +24,10 @@ extends TRANSFORM.Icons.Example;
     redeclare model HeatTransfer =
         TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
     redeclare model TraceMassTransfer =
-        TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D_MultiTransferSurface.Ideal (
-         redeclare model DiffusionCoeff =
-            TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.PowerLawTemperature (
-             D_ab0=6.4854e-26, n=5.7227)))
+        TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D_MultiTransferSurface.Ideal
+        (redeclare model DiffusionCoeff =
+            TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.PowerLawTemperature
+            (D_ab0=6.4854e-26, n=5.7227)))
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   TRANSFORM.Fluid.BoundaryConditions.Boundary_pT Sink(
     nPorts=1,

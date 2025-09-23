@@ -1,0 +1,23 @@
+Model: TRANSFORM.Fluid.Pipes.Examples.RELAPComparison.HeatedPipe_SteadyState_newpipe
+Integration started at 0 using integration method:
+RK-method: esdirk45a
+Local extrapolation
+FSAL
+Continuous extension
+
+
+Integration terminated successfully at T = 100000
+   CPU-time for integration                  : 41.714 seconds
+   CPU-time for initialization               : 0.013 seconds
+   Number of result points                   : 1001
+   Number of grid points                     : 1001
+   Number of accepted steps                  : 336
+   Number of rejected steps                  : 143
+   Number of f-evaluations (dynamics)        : 5255
+   Number of crossing function evaluations   : 1009
+   Number of Jacobian-evaluations            : 167
+   Number of model time events               : 0
+   Number of state events                    : 0
+   Number of step events                     : 0
+
+SUCCESSFUL simulation of TRANSFORM.Fluid.Pipes.Examples.RELAPComparison.HeatedPipe_SteadyState_newpipe

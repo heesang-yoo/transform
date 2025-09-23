@@ -38,28 +38,21 @@ model GenericPipe
   // Distributed Volume Setup
   //==========================================================================
   extends BaseClasses.PartialDistributedVolume(
-    final Vs=geometry.Vs,
-    final nV= geometry.nV,
-    ps_start=linspace_1D(
-        p_a_start,
-        p_b_start,nV),
-    Ts_start=linspace_1D(
-        T_a_start,
-        T_b_start,nV),
-    hs_start=if not use_Ts_start then linspace_1D(
-        h_a_start,
-        h_b_start,nV)
-             else {Medium.specificEnthalpy_pTX(
-        ps_start[i],
-        Ts_start[i],
-        Xs_start[i, 1:Medium.nX]) for i in 1:nV},
-    Xs_start=linspaceRepeat_1D(
-        X_a_start,
-        X_b_start,nV),
-    Cs_start=linspaceRepeat_1D(
-        C_a_start,
-        C_b_start,nV));
-  /* Initialization Tab*/
+    final Vs  = geometry.Vs,
+    final nV  = geometry.nV,
+    ps_start  = linspace_1D(p_a_start,p_b_start,nV),
+    Ts_start  = linspace_1D(T_a_start,T_b_start,nV),
+    hs_start  = if not use_Ts_start
+                  then linspace_1D(h_a_start,h_b_start,nV)
+                else
+                   {Medium.specificEnthalpy_pTX(
+                      ps_start[i],Ts_start[i],Xs_start[i, 1:Medium.nX])
+                      for i in 1:nV},
+    Xs_start=linspaceRepeat_1D(X_a_start,X_b_start,nV),
+    Cs_start=linspaceRepeat_1D(C_a_start,C_b_start,nV));
+  //==========================================================================
+  // Initialization Parameters
+  //==========================================================================
   parameter SI.AbsolutePressure p_a_start = Medium.p_default "Pressure at port a"
     annotation (Dialog(tab="Initialization", group="Start Value: Absolute Pressure"));
   parameter SI.AbsolutePressure p_b_start=p_a_start + (if m_flow_a_start > 0 then -1e3 elseif m_flow_a_start < 0 then -1e3 else 0)  "Pressure at port b"
@@ -108,6 +101,9 @@ model GenericPipe
       -m_flow_b_start,
       nV + 1) "Mass flow rates" annotation (Evaluate=true, Dialog(tab="Initialization", group=
          "Start Value: Mass Flow Rate"));
+  //==========================================================================
+  // Replaceable Geometry, Flow, Heat, Mass Transfer Models
+  //==========================================================================
   // Geometry Model
   replaceable model Geometry =
       TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
