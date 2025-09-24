@@ -102,7 +102,7 @@ int settings(13,1)
 
 
 #    Names of initial variables
-char initialName(419,92)
+char initialName(420,92)
 systemTF.p_ambient
 systemTF.T_ambient
 systemTF.g
@@ -408,7 +408,8 @@ circular_pipe.internalTraceGen.dlengths[1]
 circular_pipe.exposeState_a
 circular_pipe.exposeState_b
 circular_pipe.momentumDynamics
-circular_pipe.g_eff
+circular_pipe.g_n
+circular_pipe.g_eff[1]
 circular_pipe.useInnerPortProperties
 circular_pipe.useLumpedPressure
 circular_pipe.lumpPressureAt
@@ -523,7 +524,7 @@ _GlobalScope.Modelica.Media.Water.waterConstants[1].SCRIT0
 _GlobalScope.Modelica.Media.Water.waterConstants[1].deltah
 _GlobalScope.Modelica.Media.Water.waterConstants[1].deltas
 
-double initialValue(419,6)
+double initialValue(420,6)
  -1  1.0132500000000000E+05       0                 1.0000000000000000E+100
   1   280   # systemTF.p_ambient
  -1  2.9314999999999998E+02       0                 1.0000000000000000E+100
@@ -1135,7 +1136,9 @@ double initialValue(419,6)
  -2       4                       1                       4                
   6   258   # circular_pipe.momentumDynamics
  -2  9.8066499999999994E+00       0                       0                
-  6   256   # circular_pipe.g_eff
+  6   256   # circular_pipe.g_n
+ -2  9.8066499999999994E+00       0                       0                
+  6   256   # circular_pipe.g_eff[1]
  -2       0                       0                       0                
   6   257   # circular_pipe.useInnerPortProperties
  -2       0                       0                       0                
@@ -1406,7 +1409,7 @@ double initialValue(419,6)
 #   Which variables will be important for initialization and continue
 #   is indicated by value in column 6 & dsStartMasks.
 #
-char initialDescription(419,114)
+char initialDescription(420,114)
 Default ambient pressure [Pa|bar]
 Default ambient temperature [K|degC]
 Constant gravity acceleration [m/s2]
@@ -1713,6 +1716,7 @@ Volumes length [m]
 =true, p is calculated at port_b else m_flow [:#(type=Boolean)]
 Formulation of momentum balances [:#(type=Modelica.Fluid.Types.Dynamics)]
 Gravitational acceleration [m/s2]
+[m/s2]
 =true to take port properties for flow models from internal control volumes [:#(type=Boolean)]
 =true to lump pressure states together [:#(type=Boolean)]
 Location of pressure for flow calculations [:#(type=TRANSFORM.Fluid.Types.LumpedLocation)]

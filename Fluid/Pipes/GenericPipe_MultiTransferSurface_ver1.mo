@@ -129,7 +129,7 @@ model GenericPipe_MultiTransferSurface_ver1
     final vs=vsFM,
     final dps_start=dps_start,
     final m_flows_start=m_flowsFM_start,
-    final g_n=g_eff,
+    final g_eff=g_eff,
     final Ts_wall = Ts_wallFM,
     final allowFlowReversal=allowFlowReversal) "Conduction Model"
     annotation (Placement(transformation(extent={{-58,82},{-42,98}}, rotation=0)));
@@ -229,8 +229,9 @@ model GenericPipe_MultiTransferSurface_ver1
     "Formulation of momentum balances"
     annotation (Evaluate=true, Dialog(tab="Advanced", group="Dynamics"));
   // Advanced
-  replaceable input SI.Acceleration g_eff=Modelica.Constants.g_n "Gravitational acceleration"
-    annotation (Dialog(tab="Advanced", group="Inputs"));
+  input SI.Acceleration g_n=Modelica.Constants.g_n "Gravitational acceleration";
+  //replaceable input SI.Acceleration g_eff=Modelica.Constants.g_n "Gravitational acceleration"
+  replaceable input SI.Acceleration g_eff[nV] = fill(Modelica.Constants.g_n, nFM);
   parameter Boolean useInnerPortProperties=false
     "=true to take port properties for flow models from internal control volumes"
     annotation (Dialog(tab="Advanced"), Evaluate=true);
@@ -455,25 +456,25 @@ equation
   //         = v*A*dpdx + v*A*flowModel.dp_fg - v*A*dp_grav
   if calc_Wb then
    if nV == 1 or useLumpedPressure then
-     Wb_flows = geometry.dxs*((vs*geometry.dxs)*(geometry.crossAreas*geometry.dxs)*((port_b.p - port_a.p) + sum(flowModel.dps_fg) - g_eff*(geometry.dheights*mediums.d)));
+     Wb_flows = geometry.dxs*((vs*geometry.dxs)*(geometry.crossAreas*geometry.dxs)*((port_b.p - port_a.p) + sum(flowModel.dps_fg) - g_n*(geometry.dheights*mediums.d)));
    else
      if exposeState_a and exposeState_b or exposeState_a and not exposeState_b then
-       Wb_flows[2:nV - 1] = {vs[i]*geometry.crossAreas[i]*((mediums[i + 1].p - mediums[i - 1].p)/2 + (flowModel.dps_fg[i - 1] + flowModel.dps_fg[i])/2 - g_eff*geometry.dheights[i]*mediums[i].d) for i in 2:nV - 1};
+       Wb_flows[2:nV - 1] = {vs[i]*geometry.crossAreas[i]*((mediums[i + 1].p - mediums[i - 1].p)/2 + (flowModel.dps_fg[i - 1] + flowModel.dps_fg[i])/2 - g_eff[i]*geometry.dheights[i]*mediums[i].d) for i in 2:nV - 1};
     else
-       Wb_flows[2:nV - 1] = {vs[i]*geometry.crossAreas[i]*((mediums[i + 1].p - mediums[i - 1].p)/2 + (flowModel.dps_fg[i] + flowModel.dps_fg[i + 1])/2 - g_eff*geometry.dheights[i]*mediums[i].d) for i in 2:nV - 1};
+       Wb_flows[2:nV - 1] = {vs[i]*geometry.crossAreas[i]*((mediums[i + 1].p - mediums[i - 1].p)/2 + (flowModel.dps_fg[i] + flowModel.dps_fg[i + 1])/2 - g_eff[i]*geometry.dheights[i]*mediums[i].d) for i in 2:nV - 1};
      end if;
      if exposeState_a and exposeState_b then
-       Wb_flows[1] = vs[1]*geometry.crossAreas[1]*((mediums[2].p - mediums[1].p)/2 + flowModel.dps_fg[1]/2 - g_eff*geometry.dheights[1]*mediums[1].d);
-       Wb_flows[nV] = vs[nV]*geometry.crossAreas[nV]*((mediums[nV].p - mediums[nV - 1].p)/2 + flowModel.dps_fg[nV - 1]/2 - g_eff*geometry.dheights[nV]*mediums[nV].d);
+       Wb_flows[1] = vs[1]*geometry.crossAreas[1]*((mediums[2].p - mediums[1].p)/2 + flowModel.dps_fg[1]/2 - g_eff[1]*geometry.dheights[1]*mediums[1].d);
+       Wb_flows[nV] = vs[nV]*geometry.crossAreas[nV]*((mediums[nV].p - mediums[nV - 1].p)/2 + flowModel.dps_fg[nV - 1]/2 - g_eff[nV]*geometry.dheights[nV]*mediums[nV].d);
      elseif exposeState_a and not exposeState_b then
-       Wb_flows[1] = vs[1]*geometry.crossAreas[1]*((mediums[2].p - mediums[1].p)/2 + flowModel.dps_fg[1]/2 - g_eff*geometry.dheights[1]*mediums[1].d);
-       Wb_flows[nV] = vs[nV]*geometry.crossAreas[nV]*((port_b.p - mediums[nV - 1].p)/1.5 + flowModel.dps_fg[nV - 1]/2 + flowModel.dps_fg[nV] - g_eff*geometry.dheights[nV]*mediums[nV].d);
+       Wb_flows[1] = vs[1]*geometry.crossAreas[1]*((mediums[2].p - mediums[1].p)/2 + flowModel.dps_fg[1]/2 - g_eff[1]*geometry.dheights[1]*mediums[1].d);
+       Wb_flows[nV] = vs[nV]*geometry.crossAreas[nV]*((port_b.p - mediums[nV - 1].p)/1.5 + flowModel.dps_fg[nV - 1]/2 + flowModel.dps_fg[nV] - g_eff[nV]*geometry.dheights[nV]*mediums[nV].d);
      elseif not exposeState_a and exposeState_b then
-       Wb_flows[1] = vs[1]*geometry.crossAreas[1]*((mediums[2].p - port_a.p)/1.5 + flowModel.dps_fg[1] + flowModel.dps_fg[2]/2 - g_eff*geometry.dheights[1]*mediums[1].d);
-       Wb_flows[nV] = vs[nV]*geometry.crossAreas[nV]*((mediums[nV].p - mediums[nV - 1].p)/2 + flowModel.dps_fg[nV]/2 - g_eff*geometry.dheights[nV]*mediums[nV].d);
+       Wb_flows[1] = vs[1]*geometry.crossAreas[1]*((mediums[2].p - port_a.p)/1.5 + flowModel.dps_fg[1] + flowModel.dps_fg[2]/2 - g_eff[1]*geometry.dheights[1]*mediums[1].d);
+       Wb_flows[nV] = vs[nV]*geometry.crossAreas[nV]*((mediums[nV].p - mediums[nV - 1].p)/2 + flowModel.dps_fg[nV]/2 - g_eff[nV]*geometry.dheights[nV]*mediums[nV].d);
      elseif not exposeState_a and not exposeState_b then
-       Wb_flows[1] = vs[1]*geometry.crossAreas[1]*((mediums[2].p - port_a.p)/1.5 + flowModel.dps_fg[1] + flowModel.dps_fg[2]/2 - g_eff*geometry.dheights[1]*mediums[1].d);
-       Wb_flows[nV] = vs[nV]*geometry.crossAreas[nV]*((port_b.p - mediums[nV - 1].p)/1.5 + flowModel.dps_fg[nV]/2 + flowModel.dps_fg[nV + 1] - g_eff*geometry.dheights[nV]*mediums[nV].d);
+       Wb_flows[1] = vs[1]*geometry.crossAreas[1]*((mediums[2].p - port_a.p)/1.5 + flowModel.dps_fg[1] + flowModel.dps_fg[2]/2 - g_eff[1]*geometry.dheights[1]*mediums[1].d);
+       Wb_flows[nV] = vs[nV]*geometry.crossAreas[nV]*((port_b.p - mediums[nV - 1].p)/1.5 + flowModel.dps_fg[nV]/2 + flowModel.dps_fg[nV + 1] - g_eff[nV]*geometry.dheights[nV]*mediums[nV].d);
      else
        assert(false, "Unknown model structure");
      end if;
@@ -772,7 +773,7 @@ equation
       assert(false, "Unknown model structure");
     end if;
   end if;
-  annotation (
+    annotation (Dialog(tab="Advanced", group="Inputs"),
     defaultComponentName="pipe",
     Documentation(info="<html>
 <p>Base model for distributed flow models. The total volume is split into nV segments along the flow path. The default value is nV=2. </p>
