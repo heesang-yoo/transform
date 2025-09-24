@@ -1,23 +1,32 @@
-Model: TRANSFORM.Fluid.Pipes.Examples.RELAPComparison.HeatedPipe_SteadyState_newpipe
-Integration started at 0 using integration method:
-RK-method: esdirk45a
-Local extrapolation
-FSAL
-Continuous extension
+Log-file of program ./dymosim
+(generated: Thu Sep 25 01:27:46 2025)
 
+dymosim started
+... "TRANSFORM.Fluid.Pipes.Examples.pipeflow_2" simulating
+... "dsin.txt" loading (dymosim input file)
+... "pipeflow_2.mat" creating (simulation result file)
 
-Integration terminated successfully at T = 100000
-   CPU-time for integration                  : 41.714 seconds
-   CPU-time for initialization               : 0.013 seconds
-   Number of result points                   : 1001
-   Number of grid points                     : 1001
-   Number of accepted steps                  : 336
-   Number of rejected steps                  : 143
-   Number of f-evaluations (dynamics)        : 5255
-   Number of crossing function evaluations   : 1009
-   Number of Jacobian-evaluations            : 167
-   Number of model time events               : 0
-   Number of state events                    : 0
-   Number of step events                     : 0
+Integration started at T = 0 using integration method DASSL
+(DAE multi-step solver (dassl/dasslrt of Petzold modified by Dassault Systemes))
 
-SUCCESSFUL simulation of TRANSFORM.Fluid.Pipes.Examples.RELAPComparison.HeatedPipe_SteadyState_newpipe
+Integration terminated successfully at T = 1
+   CPU-time for integration                : 0.024 seconds
+   CPU-time for one grid interval          : 0.048 milliseconds
+   CPU-time for initialization             : 0.001 seconds
+   Number of result points                 : 502
+   Number of grid points                   : 501
+   Number of accepted steps                : 66
+   Number of f-evaluations (dynamics)      : 128
+   Number of crossing function evaluations : 566
+   Number of Jacobian-evaluations          : 26
+   Number of model time events             : 0
+   Number of input time events             : 0
+   Number of state events                  : 0
+   Number of step events                   : 0
+   Minimum integration stepsize            : 1.68e-06
+   Maximum integration stepsize            : 0.249
+   Maximum integration order               : 4
+Calling terminal section
+... "dsfinal.txt" creating (final states)
+
+SUCCESSFUL simulation of TRANSFORM.Fluid.Pipes.Examples.pipeflow_2

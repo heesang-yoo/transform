@@ -1,0 +1,4 @@
+within TRANSFORM.Fluid.Pipes;
+model GenericPipe_MultiTransferSurface_test2
+  extends GenericPipe_MultiTransferSurface_ver1;
+end GenericPipe_MultiTransferSurface_test2;

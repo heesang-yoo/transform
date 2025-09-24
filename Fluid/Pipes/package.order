@@ -1,6 +1,7 @@
 Examples
 GenericPipe
 GenericPipe_MultiTransferSurface
+GenericPipe_MultiTransferSurface_ver1
 GenericPipe_withWall
 GenericPipe_withWallx2
 GenericPipe_wWall_wTraceMass
@@ -8,4 +9,5 @@ GenericPipe_withWallAndInsulation
 TransportDelayPipe
 parallelFlow
 BaseClasses
-GenericPipe_MultiTransferSurface_6dof
+GenericPipe_MultiTransferSurface_test1
+GenericPipe_MultiTransferSurface_test2

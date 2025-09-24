@@ -62,10 +62,10 @@ TRANSFORM.Fluid.Pipes.GenericPipe_MultiTransferSurface
         annulus_pipe.port_b.p})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 equation
-  connect(boundary.ports[1], circular_pipe.port_a) annotation(Line(points={{-70,2},
-          {-60,2},{-60,40},{-30,40}},                                                                                   color = {0, 127, 255}));
-  connect(boundary.ports[2], annulus_pipe.port_a) annotation(Line(points={{-70,-2},
-          {-60,-2},{-60,-40},{-30,-40}},                                                                                 color = {0, 127, 255}));
+  connect(boundary.ports[1], circular_pipe.port_a) annotation(Line(points={{-70,-1},
+          {-60,-1},{-60,40},{-30,40}},                                                                                  color = {0, 127, 255}));
+  connect(boundary.ports[2], annulus_pipe.port_a) annotation(Line(points={{-70,1},
+          {-60,1},{-60,-40},{-30,-40}},                                                                                  color = {0, 127, 255}));
   connect(circular_pipe.port_b, massflowsink1.ports[1]) annotation(Line(points = {{-10, 40}, {30, 40}}, color = {0, 127, 255}));
   connect(annulus_pipe.port_b, massflowsink2.ports[1]) annotation(Line(points = {{-10, -40}, {30, -40}}, color = {0, 127, 255}));
   annotation(experiment(StopTime=1),
